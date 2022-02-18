@@ -1,6 +1,6 @@
 # AsyncFluentGenerator
 
-A horribel unoptimized Source Generator that allows you to write the following code.
+A horrible unoptimized Source Generator that allows you to write the following code.
 ```csharp
 using AsyncFluentGenerator;
 using AsyncFluentMethodExtionsions;
