@@ -16,7 +16,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Benjamin Zick</Authors>
     <Product>AsyncFluentGenerator</Product>
-    <PackageDescription>This package allows users to chain async methods.</PackageDescription>
+    <PackageDescription>This package enables chaining of async methods.</PackageDescription>
     <RepositoryUrl>https://github.com/zickb/AsyncFluentGenerator</RepositoryUrl>
     <PackageProjectUrl>https://github.com/zickb/AsyncFluentGenerator</PackageProjectUrl>
     <IncludeSymbols>true</IncludeSymbols>
