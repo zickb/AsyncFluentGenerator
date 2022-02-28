@@ -16,7 +16,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Benjamin Zick</Authors>
     <Product>AsyncFluentGenerator</Product>
-    <PackageDescription>This package adds an Octocat!</PackageDescription>
+    <PackageDescription>This package allows users to chain async methods.</PackageDescription>
     <RepositoryUrl>https://github.com/zickb/AsyncFluentGenerator</RepositoryUrl>
     <PackageProjectUrl>https://github.com/zickb/AsyncFluentGenerator</PackageProjectUrl>
     <IncludeSymbols>true</IncludeSymbols>
