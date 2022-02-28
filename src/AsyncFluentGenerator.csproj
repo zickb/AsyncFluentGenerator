@@ -14,8 +14,10 @@
     <PackageId>AsyncFluentGenerator</PackageId>
     <Version>0.1.0</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Authors>Benjamin Zick</Authors>
     <Product>AsyncFluentGenerator</Product>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
     <PackageDescription>This package enables chaining of async methods.</PackageDescription>
     <RepositoryUrl>https://github.com/zickb/AsyncFluentGenerator</RepositoryUrl>
     <PackageProjectUrl>https://github.com/zickb/AsyncFluentGenerator</PackageProjectUrl>
@@ -23,6 +25,10 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\Readme.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
