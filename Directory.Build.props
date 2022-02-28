@@ -1,0 +1,30 @@
+<Project>
+    <PropertyGroup>
+        <LangVersion>10</LangVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+        <Deterministic>true</Deterministic>
+      </PropertyGroup>
+    
+      <PropertyGroup>
+        <Version>0.1.0</Version>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Authors>Benjamin Zick</Authors>
+        <Product>AsyncFluentGenerator</Product>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/zickb/AsyncFluentGenerator</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/zickb/AsyncFluentGenerator</PackageProjectUrl>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <DebugType>embedded</DebugType>
+      </PropertyGroup>
+    
+      <ItemGroup>
+        <None Include="$(MSBuildThisFileDirectory)\README.md" Pack="true" PackagePath="/" />
+      </ItemGroup>
+    
+      <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All"/>
+      </ItemGroup>
+</Project>

@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncFluentGenerator", "src\AsyncFluentGenerator.csproj", "{286D8AF9-FF0C-4E21-8730-EF489A5494AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncFluentGenerator", "src\AsyncFluentGenerator\AsyncFluentGenerator.csproj", "{286D8AF9-FF0C-4E21-8730-EF489A5494AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "test", "test\test.csproj", "{0A39420D-AF5C-4C7A-B1CF-AF1BA1111093}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CE8E3F8E-674A-48B8-997C-A35B2CA20AA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncFluentGenerator.Attributes", "src\AsyncFluentGenerator.Attributes\AsyncFluentGenerator.Attributes.csproj", "{78B93A5E-ECBA-4B69-A4B4-797BC68889FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +28,12 @@ Global
 		{0A39420D-AF5C-4C7A-B1CF-AF1BA1111093}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A39420D-AF5C-4C7A-B1CF-AF1BA1111093}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A39420D-AF5C-4C7A-B1CF-AF1BA1111093}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78B93A5E-ECBA-4B69-A4B4-797BC68889FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78B93A5E-ECBA-4B69-A4B4-797BC68889FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78B93A5E-ECBA-4B69-A4B4-797BC68889FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78B93A5E-ECBA-4B69-A4B4-797BC68889FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{78B93A5E-ECBA-4B69-A4B4-797BC68889FF} = {CE8E3F8E-674A-48B8-997C-A35B2CA20AA7}
 	EndGlobalSection
 EndGlobal

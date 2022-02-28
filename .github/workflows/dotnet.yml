@@ -32,7 +32,7 @@ jobs:
     - name: Pack
       if: github.event.inputs.is_release == 'true'
       run: |
-        dotnet pack src/AsyncFluentGenerator.csproj -c Release --include-source -o out
+        dotnet pack src/AsyncFluentGenerator/AsyncFluentGenerator.csproj -c Release --include-source -o out
     - name: Push
       if: ${{ success() && github.ref == 'refs/heads/main' && github.event.inputs.is_release == 'true' }}
       run: |
