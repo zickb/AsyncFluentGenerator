@@ -107,14 +107,15 @@ namespace TestProgram
         where U:class
         {
             [AsyncFluentMethod(true)]
-            [return: MaybeNull] 
-            async MyAwaitableObject<Name<Z>> A.AddEventListener<T, Z>(string eventName, Action<T?, Z> eventHandler) where T:class where Z:class
+            public async Task<Name<Z>> @static<T, Z>(string @namespace, Action<T?> eventHandler) where Z:class
             {
                 await Task.Run(() => System.Console.WriteLine(""Test""));
                 return new Name<Z>();
             }
 
-            public async Task<Name<Z>> AddEventListener2<T, Z>(string eventName, Action<T?> eventHandler) where Z:class
+            [AsyncFluentMethod(true)]
+            [return: MaybeNull] 
+            async MyAwaitableObject<Name<Z>> A.AddEventListener<T, Z>(string eventName, Action<T?, Z> eventHandler) where T:class where Z:class
             {
                 await Task.Run(() => System.Console.WriteLine(""Test""));
                 return new Name<Z>();

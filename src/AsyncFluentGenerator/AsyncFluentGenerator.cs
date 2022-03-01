@@ -144,7 +144,7 @@ public class AsyncFluentGenerator : IIncrementalGenerator
                     x.GetAttributes().Select(x => x.ToString()),
                     x.IsParams ? new List<string> { "params" } : new List<string>(),
                     x.Type.ToString(),
-                    x.MetadataName,
+                    ((ParameterSyntax)x.DeclaringSyntaxReferences.First().GetSyntax()).Identifier.Text, //need to resolve possible verbatim identifier
                     x.GetDefaultValue())).ToList();
                 parameters.Insert(0, new MethodParameter(new List<string>(), new List<string> { "this" }, $"System.Threading.Tasks.Task<{methodSymbol.ContainingType}>", $"methodContainingInstance", null));
 
