@@ -107,10 +107,9 @@ namespace TestProgram
         where U:class
         {
             [AsyncFluentMethod(true)]
-            public async Task<Name<Z>> @static<T, Z>(string @namespace, Action<T?> eventHandler) where Z:class
+            public async ValueTask @static<T, Z>(string @namespace, Action<T?> eventHandler) where Z:class
             {
                 await Task.Run(() => System.Console.WriteLine(""Test""));
-                return new Name<Z>();
             }
 
             [AsyncFluentMethod(true)]

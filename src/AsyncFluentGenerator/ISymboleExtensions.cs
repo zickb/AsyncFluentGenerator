@@ -75,7 +75,7 @@ internal static class ISymbolExtensions
         {
             return false;
         }
-        return namedType.IsCustomTaskType(builderArgument: out _);
+        return namedType.ConstructedFrom.IsCustomTaskType(builderArgument: out _);
     }
 
     internal static bool IsGenericTaskType(this ITypeSymbol type, CSharpCompilation compilation)
@@ -347,6 +347,14 @@ internal static class ISymbolExtensions
             return $"System.Collections.Generic.IAsyncEnumerable<{typeArgument}>";
 
         return $"System.Threading.Tasks.Task<{type}>";
+    }
+
+    public static bool IsNonVoidLikeType(this ITypeSymbol type, CSharpCompilation compilation)
+    {
+        if (type.IsVoidType() || type.IsNonGenericTaskType(compilation) )
+            return false;
+
+        return true;
     }
 
     public static bool IsAccessable(this ISymbol symbol)

@@ -122,6 +122,7 @@ public class AsyncFluentGenerator : IIncrementalGenerator
                     methodAttributeValues?.Count() >= 1 && methodAttributeValues.ElementAt(methodAttributeValues.Count() - 1) is bool includeAttributes && includeAttributes);
 
                 var methodInformation = new MethodInformation(
+                    methodSymbol.ReturnType.IsNonVoidLikeType(compilation),
                     methodSymbol.ReturnType.IsAwaitableNonDynamic(compilation.GetSemanticModel(methodSymbol.DeclaringSyntaxReferences.First().SyntaxTree), methodSymbol.DeclaringSyntaxReferences.First().GetSyntax().SpanStart),
                     methodSymbol.ReturnType.IsIEnumerableType(compilation),
                     methodSymbol.ReturnType.IsIAsyncEnumerableType(compilation));

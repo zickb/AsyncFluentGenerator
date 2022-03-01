@@ -48,7 +48,7 @@ internal class AsyncFluentExtensionWriter
         _codeBuilder.WriteBeginScope()
                     .WriteLine($"var awaitedMethodContainingInstance ={(methodHeader.InterfaceSpecifier != null ? $" ({methodHeader.InterfaceSpecifier})" : string.Empty)} await {methodHeader.Parameters.First().Name};");
 
-        if (methodInformation.IsAsyncEnumerable)
+        if (methodInformation.IsAsyncEnumerable && methodInformation.IsNonVoidLikeType)
         {
             _codeBuilder
                 .WriteLine($"await foreach(var resultItem in awaitedMethodContainingInstance.{methodHeader.Name}{WriteMethodTypeParameter(methodHeader)}({string.Join(", ", methodHeader.Parameters.Skip(1).Select(x => x.Name))}))")
@@ -56,7 +56,7 @@ internal class AsyncFluentExtensionWriter
                 .WriteLine("yield return resultItem;")
                 .WriteEndScope();
         }
-        else if (methodInformation.IsEnumerable)
+        else if (methodInformation.IsEnumerable && methodInformation.IsNonVoidLikeType)
         {
             _codeBuilder
                 .WriteLine($"foreach(var resultItem in awaitedMethodContainingInstance.{methodHeader.Name}{WriteMethodTypeParameter(methodHeader)}({string.Join(", ", methodHeader.Parameters.Skip(1).Select(x => x.Name))}))")
@@ -64,14 +64,21 @@ internal class AsyncFluentExtensionWriter
                 .WriteLine("yield return resultItem;")
                 .WriteEndScope();
         }
-        else if (methodInformation.IsAwaitable)
+        else if (methodInformation.IsAwaitable && methodInformation.IsNonVoidLikeType)
         {
             _codeBuilder.WriteLine($"return await awaitedMethodContainingInstance.{methodHeader.Name}{WriteMethodTypeParameter(methodHeader)}({string.Join(", ", methodHeader.Parameters.Skip(1).Select(x => x.Name))});");
         }
-        else
+        else if (methodInformation.IsNonVoidLikeType)
         {
             _codeBuilder.WriteLine($"return awaitedMethodContainingInstance.{methodHeader.Name}{WriteMethodTypeParameter(methodHeader)}({string.Join(", ", methodHeader.Parameters.Skip(1).Select(x => x.Name))});");
-
+        }
+        else if (methodInformation.IsAwaitable)
+        {
+            _codeBuilder.WriteLine($"await awaitedMethodContainingInstance.{methodHeader.Name}{WriteMethodTypeParameter(methodHeader)}({string.Join(", ", methodHeader.Parameters.Skip(1).Select(x => x.Name))});");
+        }
+        else
+        {
+            _codeBuilder.WriteLine($"awaitedMethodContainingInstance.{methodHeader.Name}{WriteMethodTypeParameter(methodHeader)}({string.Join(", ", methodHeader.Parameters.Skip(1).Select(x => x.Name))});");
         }
 
         _codeBuilder.WriteEndScope();
