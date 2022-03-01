@@ -48,7 +48,7 @@ public class AsyncFluentMethod: Attribute
 }
 
 /// <summary>
-/// Use this attribute to specify the name of the generated class which contains the generated async versions of the instance methods.
+/// Use this attribute to specify the name of the generated class which contains the generated async versions of the instance methods and to configure the extended type(s).
 /// </summary>
 /// <remarks>
 /// This attribute has only an effect if at least one of the instance methods of the class is annotated with the <c>AsyncFluentMethod</c> attribute. 
