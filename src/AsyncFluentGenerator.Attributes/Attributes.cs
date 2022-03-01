@@ -62,14 +62,33 @@ public class AsyncFluentClass: Attribute
     /// <remarks>
     ///
     /// </remarks>
+    /// <param name="extensionTypes">The (awaitable) types which will be extended.</param>
+    public AsyncFluentClass(params Type[] extensionTypes) 
+    { 
+        ExtensionTypes = extensionTypes;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <remarks>
+    ///
+    /// </remarks>
     /// <param name="extensionClassName">The name of the generated class.</param>
-    public AsyncFluentClass(string extensionClassName) 
+    /// <param name="extensionTypes">The (awaitable) types which will be extended.</param>
+    public AsyncFluentClass(string extensionClassName, params Type[] extensionTypes) 
     { 
         ExtensionClassName = extensionClassName;
+        ExtensionTypes = extensionTypes;
     }
 
     /// <summary>
     /// The name of the generated class.
     /// </summary>
-    public string ExtensionClassName { get; }
+    public string? ExtensionClassName { get; }
+
+    /// <summary>
+    /// The (awaitable) types which will be extended.
+    /// </summary>
+    public Type[] ExtensionTypes { get; }
 }

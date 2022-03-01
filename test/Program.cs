@@ -103,6 +103,7 @@ namespace TestProgram
             internal MyAwaitableObject<Name<Z>> AddEventListener<T, Z>(string eventName, Action<T?, Z> eventHandler) where T:class where Z:class;
         }
 
+        [AsyncFluentClass(typeof(ValueTask), typeof(Task))]
         public class Name<U> : A
         where U:class
         {
@@ -183,6 +184,7 @@ static Compilation CreateCompilation([System.Diagnostics.CodeAnalysis.NotNullWhe
         new[] { 
             MetadataReference.CreateFromFile(typeof(object).GetTypeInfo().Assembly.Location), 
             MetadataReference.CreateFromFile(typeof(AsyncFluentMethod).Assembly.Location),
+            MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "netstandard.dll")),
             MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "System.Runtime.dll")),
             MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "System.Console.dll")),  
             MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location), "System.Runtime.Handles.dll")),  

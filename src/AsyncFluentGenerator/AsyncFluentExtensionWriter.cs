@@ -33,7 +33,7 @@ internal class AsyncFluentExtensionWriter
     {
         _codeBuilder.WriteLine($"namespace {configuration.Namespace}")
                     .WriteBeginScope()
-                    .WriteLine($"public static class {configuration.ClassName.Trim()}AsyncFluentMethodExtensions")
+                    .WriteLine($"public static class {configuration.ClassName.Trim()}")
                     .WriteBeginScope();
     }
 

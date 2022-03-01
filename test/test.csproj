@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\AsyncFluentGenerator\AsyncFluentGenerator.csproj" />
+    <ProjectReference Include="..\src\AsyncFluentGenerator.Attributes\AsyncFluentGenerator.Attributes.csproj" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
   </ItemGroup>
 

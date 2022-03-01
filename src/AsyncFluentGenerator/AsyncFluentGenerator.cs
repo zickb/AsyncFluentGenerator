@@ -62,14 +62,16 @@ public class AsyncFluentGenerator : IIncrementalGenerator
         {
             var writer = new AsyncFluentExtensionWriter();
 
-            var defaultClassName = ((TypeDeclarationSyntax)typeSymbol.DeclaringSyntaxReferences.First().GetSyntax()).Identifier.Text;
-            var classAttributeValues = typeSymbol.GetAttributes().Where(x => x.AttributeClass?.ToString() == AsyncFluentClassAttribute).FirstOrDefault()?.ConstructorArguments.Select(x => x.Value);
+            var defaultExtensionTypes = new string[1] { "System.Threading.Tasks.Task" };
+            var defaultClassName = $"{((TypeDeclarationSyntax)typeSymbol.DeclaringSyntaxReferences.First().GetSyntax()).Identifier.Text}AsyncFluentMethodExtensions";
+            var classAttributeValues = typeSymbol.GetAttributes().Where(x => x.AttributeClass?.ToString() == AsyncFluentClassAttribute).FirstOrDefault()?.ConstructorArguments.Select(x => x.Kind == TypedConstantKind.Array ? x.Values.Select(x =>  x.Value) : x.Value);
             var classConfig = new AsyncFluentClassConfiguration(
                     typeSymbol.ContainingNamespace.IsGlobalNamespace ? DefaultNamespace : typeSymbol.ContainingNamespace.ToString(),
-                    classAttributeValues?.Count() >= 1 && classAttributeValues.ElementAt(classAttributeValues.Count() - 1) is string className ? className : defaultClassName);
+                    classAttributeValues?.Count() >= 1 && classAttributeValues.ElementAt(classAttributeValues.Count() - 1) is IEnumerable<object> extensionTypes && extensionTypes.Count() > 0 ? extensionTypes.Select(x => x.ToString()).ToArray() : defaultExtensionTypes,
+                    classAttributeValues?.Count() >= 2 && classAttributeValues.ElementAt(classAttributeValues.Count() - 2) is string className ? className : defaultClassName);
             writer.WriteNullableEnable();
             writer.WriteClassStart(classConfig);
-
+            
             var methods = typeSymbol.GetMembers().OfType<IMethodSymbol>();
             var distinctMethods = methods.Where(x => x.GetAttributes().Any(y => y.AttributeClass?.ToString() == AsyncFluentMethodAttribute)).Distinct(SymbolEqualityComparer.Default).OfType<IMethodSymbol>();
             foreach (IMethodSymbol methodSymbol in distinctMethods)
@@ -147,24 +149,31 @@ public class AsyncFluentGenerator : IIncrementalGenerator
                     x.Type.ToString(),
                     ((ParameterSyntax)x.DeclaringSyntaxReferences.First().GetSyntax()).Identifier.Text, //need to resolve possible verbatim identifier
                     x.GetDefaultValue())).ToList();
-                parameters.Insert(0, new MethodParameter(new List<string>(), new List<string> { "this" }, $"System.Threading.Tasks.Task<{methodSymbol.ContainingType}>", $"methodContainingInstance", null));
 
-                var mH = new MethodHeader
-                (
-                    Attributes: methodAttributes,
-                    ReturnTypeAttributes: returnTypeAttributes,
-                    Modifiers: modifiers,
-                    ReturnType: returnType,
-                    InterfaceSpecifier: interfaceSpecifier,
-                    Name: methodIdentifier,
-                    Types: methodTypeParameters,
-                    Parameters: parameters
-                );
-                writer.WriteAsyncFluentMethod(methodConfig, mH, methodInformation);
+                foreach (var type in classConfig.ExtensionTypes)
+                {
+                    parameters.Insert(0, new MethodParameter(new List<string>(), new List<string> { "this" }, $"{type}<{methodSymbol.ContainingType}>", $"methodContainingInstance", null));
+
+                    var mH = new MethodHeader
+                    (
+                        Attributes: methodAttributes,
+                        ReturnTypeAttributes: returnTypeAttributes,
+                        Modifiers: modifiers,
+                        ReturnType: returnType,
+                        InterfaceSpecifier: interfaceSpecifier,
+                        Name: methodIdentifier,
+                        Types: methodTypeParameters,
+                        Parameters: parameters
+                    );
+                    writer.WriteAsyncFluentMethod(methodConfig, mH, methodInformation);
+                    parameters.RemoveAt(0);
+                }
             }
             writer.WriteClassEnd();
             writer.WriteNullableDisable();
-            context.AddSource($"{classConfig.ClassName}AsyncFluentMethodExtensions.g.cs", writer.ToString());
+            var text = writer.ToString();
+            context.AddSource($"{classConfig.ClassName}AsyncFluentMethodExtensions.g.cs", text);
+            System.Console.WriteLine(text);
         }
     }
 }
