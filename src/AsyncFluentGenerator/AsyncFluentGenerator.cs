@@ -68,7 +68,7 @@ public class AsyncFluentGenerator : IIncrementalGenerator
             var classConfig = new AsyncFluentClassConfiguration(
                     typeSymbol.ContainingNamespace.IsGlobalNamespace ? DefaultNamespace : typeSymbol.ContainingNamespace.ToString(),
                     classAttributeValues?.Count() >= 1 && classAttributeValues.ElementAt(classAttributeValues.Count() - 1) is IEnumerable<object> extensionTypes && extensionTypes.Count() > 0 ? extensionTypes.Select(x => x.ToString()).ToArray() : defaultExtensionTypes,
-                    classAttributeValues?.Count() >= 2 && classAttributeValues.ElementAt(classAttributeValues.Count() - 2) is string className ? className : defaultClassName);
+                    classAttributeValues?.Count() >= 2 && classAttributeValues.ElementAt(classAttributeValues.Count() - 2) is string className && className.Trim() != string.Empty  ? className.Trim() : defaultClassName);
             writer.WriteNullableEnable();
             writer.WriteClassStart(classConfig);
             
@@ -120,7 +120,7 @@ public class AsyncFluentGenerator : IIncrementalGenerator
                 
                 var methodAttributeValues = methodSymbol.GetAttributes().Where(x => x.AttributeClass?.ToString() == AsyncFluentMethodAttribute).First().ConstructorArguments.Select(x => x.Value);
                 var methodConfig = new AsyncFluentMethodConfiguration(
-                    methodAttributeValues?.Count() >= 2 && methodAttributeValues.ElementAt(methodAttributeValues.Count() - 2) is string methodName ? methodName : null,
+                    methodAttributeValues?.Count() >= 2 && methodAttributeValues.ElementAt(methodAttributeValues.Count() - 2) is string methodName && methodName.Trim() != string.Empty ? methodName.Trim() : null,
                     methodAttributeValues?.Count() >= 1 && methodAttributeValues.ElementAt(methodAttributeValues.Count() - 1) is bool includeAttributes && includeAttributes);
 
                 var methodInformation = new MethodInformation(
