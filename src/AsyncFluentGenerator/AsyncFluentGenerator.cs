@@ -173,7 +173,7 @@ public class AsyncFluentGenerator : IIncrementalGenerator
             writer.WriteNullableDisable();
             var text = writer.ToString();
             context.AddSource($"{classConfig.ClassName}AsyncFluentMethodExtensions.g.cs", text);
-            System.Console.WriteLine(text);
+            // System.Console.WriteLine(text);
         }
     }
 }
